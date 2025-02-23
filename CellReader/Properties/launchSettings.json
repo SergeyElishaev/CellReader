@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CellReader (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "CellReader (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
