@@ -7,9 +7,74 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="CellReader">
+    Title="Cell Reader">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center">
+            <Button Content="Select Folder" Click="SelectFolder_Click"/>
+            <Button Content="Get Marker Types" Click="GetMarkerTypes_Click" Margin="10,0,0,0" IsEnabled="{Binding HasSelectedFiles, Mode=OneWay}"/>
+            <Button Content="Calculate" Click="Calculate_Click" Margin="10"/>
+        </StackPanel>
+        <Border Grid.Row="1" Height="2" Background="Gray" HorizontalAlignment="Stretch" Margin="0,5,0,5"/>
+        <Grid Grid.Row="2" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <TextBlock Text="Selected Files" FontWeight="Bold" HorizontalAlignment="Center" Grid.Row="0" />
+            </Grid>
+            <TextBlock Text="Markers" FontWeight="Bold" HorizontalAlignment="Center" Grid.Column="1" />
+            <TextBlock Text="Results" FontWeight="Bold" HorizontalAlignment="Center" Grid.Column="2" />
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Center">
+                <Button Content="Select All" Click="SelectAllFiles_Click"/>
+                <Button Content="Clear" Click="ClearFilesSelection_Click" Margin="10,0,0,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Center">
+                <Button Content="Select All" Click="SelectAllMarkers_Click"/>
+                <Button Content="Clear" Click="ClearMarkersSelection_Click" Margin="10,0,0,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Center">
+                <Button Content="Clear" Click="ClearOutput_Click" Margin="10,0,0,0"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" Margin="10">
+                    <ListBox x:Name="FileList" />
+                </ScrollViewer>
+                <ProgressRing x:Name="LoadingFilesSpinner" IsActive="False" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Grid>
+            <Grid Grid.Column="1">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" Margin="10">
+                    <ListBox x:Name="TypeList"/>
+                </ScrollViewer>
+                <ProgressRing x:Name="LoadingMarkersSpinner" IsActive="False" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Grid>
+            <Grid Grid.Column="2">
+                <TextBox x:Name="OutputText" TextWrapping="Wrap" Margin="10" IsReadOnly="True" />
+                <ProgressRing x:Name="LoadingOutputSpinner" IsActive="False" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Grid>
+        </Grid>
+    </Grid>
 </Window>
